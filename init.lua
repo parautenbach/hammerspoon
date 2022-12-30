@@ -34,7 +34,8 @@ function browser_active_tab_with_name(name)
                 }
                 return;
             }
-            JSON.stringify(main());
+            main();
+            //JSON.stringify(main());
             // end of javascript
         ]], {"-s"})
         --print(result)
@@ -46,7 +47,8 @@ function browser_active_tab_with_name(name)
         -- on the second window when there are only 2 windws will effectively
         -- toggle between them
         if object ~= nil then
-            index = hs.json.decode(object).windowIndex + 1
+            --index = hs.json.decode(object).windowIndex + 1
+            index = object.windowIndex + 1
             --print(index)
             browser = hs.application("Microsoft Edge")
             browser:allWindows()[index]:focus()
