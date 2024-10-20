@@ -1,3 +1,30 @@
+hs.audiodevice.watcher.setCallback(function(e)
+  if (e == 'dev#') then
+    -- print(type(hs.audiodevice.defaultOutputDevice()))
+    -- print(hs.audiodevice.defaultOutputDevice():name())
+    -- hs.alert.show(hs.audiodevice.defaultOutputDevice():name())
+  end
+end)
+
+hs.hotkey.bind({"cmd", "alt", "ctrl"}, "W", function()
+  -- hs.alert.show("Hello World!")
+  hs.alert.show(hs.audiodevice.defaultOutputDevice())
+  hs.alert.show(hs.audiodevice.defaultOutputDevice():inUse())
+  hs.alert.show(hs.audiodevice.defaultOutputDevice():outputVolume())
+  hs.alert.show(hs.audiodevice.defaultOutputDevice():outputMuted())
+  hs.alert.show(hs.audiodevice.defaultOutputDevice():transportType())
+end)
+
+-- function audiodevwatch(dev_uid, event_name, event_scope, event_element)
+--    print("Audiodevwatch args: " .. dev_uid .. "," .. event_name .. "," .. event_scope .. "," .. event_element)
+--    dev = hs.audiodevice.findDeviceByUID(dev_uid)
+-- end
+
+-- for i,dev in ipairs(hs.audiodevice.allOutputDevices()) do
+--    dev:watcherCallback(audiodevwatch):watcherStart()
+--    print("Setting up watcher for audio device " .. dev:name())
+-- end
+
 function browser_active_tab_with_name(name)
     return function()
         local result, object = hs.osascript.javascript([[
@@ -57,3 +84,10 @@ function browser_active_tab_with_name(name)
 end
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "M", browser_active_tab_with_name("Meet"))
+
+hs.audiodevice.watcher.start()
+
+hs.hotkey.bind({"cmd", "alt", "ctrl"}, "R", function()
+  hs.reload()
+end)
+hs.alert.show("Config loaded")
